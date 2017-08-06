@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>Tennis.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Tennis&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">tennis</a> &gt; <span class="el_source">Tennis.java</span></div><h1>Tennis.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tennis;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+/**
+ *
+ * @author New User
+ */
+<span class="nc" id="L15">public class Tennis {</span>
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        String playerOne;
+        String playerTwo;
+        String pointScorer;
+        Match m;
+        
+        try
+        {
+<span class="nc" id="L28">            writeLine(&quot;Welcome to SUPER HAPPY TENNIS FUN TIME!!!&quot;);</span>
+<span class="nc" id="L29">            writeLine(&quot;Please enter the name of Player One:&quot;);</span>
+<span class="nc" id="L30">            playerOne = readLine();</span>
+<span class="nc" id="L31">            writeLine(&quot;Please enter the name of Player Two:&quot;);</span>
+<span class="nc" id="L32">            playerTwo = readLine();</span>
+<span class="nc" id="L33">            writeLine(String.format(&quot;%s vs %s.  Get ready...&quot;, playerOne, playerTwo));</span>
+
+<span class="nc" id="L35">            m = new TennisMatch(playerOne, playerTwo);</span>
+            while(true)
+            {
+<span class="nc" id="L38">                writeLine(String.format(&quot;Point won by [%s, %s]:&quot;, playerOne, playerTwo));</span>
+<span class="nc" id="L39">                pointScorer = readLine();</span>
+<span class="nc" id="L40">                m.pointWonBy(pointScorer);</span>
+<span class="nc" id="L41">                writeLine(m.score());</span>
+
+<span class="nc bnc" id="L43" title="All 2 branches missed.">                if(m.isMatchComplete())</span>
+                {
+<span class="nc" id="L45">                    writeLine(String.format(&quot;Match complete. Final score: %s&quot;, m.score()));</span>
+<span class="nc" id="L46">                    break;</span>
+                }
+            }
+        }
+<span class="nc" id="L50">        catch(Exception e)</span>
+        {
+<span class="nc" id="L52">            writeLine(&quot;Uh oh, something went horribly wrong: &quot; + e.getMessage());</span>
+<span class="nc" id="L53">        }</span>
+<span class="nc" id="L54">    }</span>
+    
+    protected static String readLine()
+    {       
+<span class="nc" id="L58">        String input = null;</span>
+        
+        try {
+<span class="nc" id="L61">            BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );</span>
+<span class="nc" id="L62">            input = new String();</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">            while( input.length() &lt; 1 ){</span>
+<span class="nc" id="L64">                    System.out.print( &quot;&gt;&quot; );</span>
+<span class="nc" id="L65">                    input = reader.readLine();</span>
+                    }	
+            
+            //System.out.println( &quot;You typed: '&quot; + input + &quot;'.&quot; );
+        }
+<span class="nc" id="L70">        catch( Exception e ){</span>
+<span class="nc" id="L71">            System.out.println( &quot;An exception occured!&quot; );</span>
+<span class="nc" id="L72">            System.out.println( e.toString() );</span>
+<span class="nc" id="L73">        }</span>
+<span class="nc" id="L74">        return input;</span>
+    }
+    
+    
+    protected static void writeLine(String s)
+    {
+<span class="nc" id="L80">        System.out.println(s);</span>
+<span class="nc" id="L81">    }</span>
+}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>

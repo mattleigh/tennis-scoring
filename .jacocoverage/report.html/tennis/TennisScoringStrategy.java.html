@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>TennisScoringStrategy.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCoverage analysis of project &quot;Tennis&quot; (powered by JaCoCo from EclEmma)</a> &gt; <a href="index.source.html" class="el_package">tennis</a> &gt; <span class="el_source">TennisScoringStrategy.java</span></div><h1>TennisScoringStrategy.java</h1><pre class="source lang-java linenums">/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tennis;
+
+/**
+ *
+ * @author New User
+ */
+<span class="nc" id="L12">public class TennisScoringStrategy implements ScoringStrategy {</span>
+
+    @Override
+    public boolean hasPlayerWon(Game game, Player player)
+            throws Exception
+    {        
+<span class="nc bnc" id="L18" title="All 2 branches missed.">        return game.getPlayerPoints(player) &gt;= 4 &amp;&amp; </span>
+<span class="nc bnc" id="L19" title="All 2 branches missed.">                game.getPlayerPoints(player) + 2 &gt; game.getPlayerPoints(player.getOpponent(0));</span>
+    }
+
+    
+    /**
+     * 
+     * @param game
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    @Override
+    public String score(Game game)
+            throws Exception 
+    {
+        Player playerOne;
+        Player playerTwo;
+            
+        try
+        {
+            
+<span class="nc" id="L39">            playerOne = game.getPlayers().getPlayer(1);</span>
+<span class="nc" id="L40">            playerTwo = game.getPlayers().getPlayer(2);</span>
+
+<span class="nc bnc" id="L42" title="All 2 branches missed.">            if(this.isDeuce(game))</span>
+            {
+<span class="nc" id="L44">                return &quot;Deuce&quot;;</span>
+            }
+<span class="nc bnc" id="L46" title="All 2 branches missed.">            else if(hasAdvantage(game, playerOne))</span>
+            {
+<span class="nc" id="L48">                return String.format(&quot;%d-%d, Advantage %s&quot;, this.getScoreForDisplay(game, playerOne), this.getScoreForDisplay(game, playerTwo), playerOne.getName());</span>
+            }
+<span class="nc bnc" id="L50" title="All 2 branches missed.">            else if(hasAdvantage(game, playerTwo))</span>
+            {
+<span class="nc" id="L52">                return String.format(&quot;%d-%d, Advantage %s&quot;, this.getScoreForDisplay(game, playerOne), this.getScoreForDisplay(game, playerTwo), playerTwo.getName());</span>
+            }
+            else
+            {
+<span class="nc" id="L56">                return String.format(&quot;%d-%d&quot;, this.getScoreForDisplay(game, playerOne), this.getScoreForDisplay(game, playerTwo));            </span>
+            }
+        }
+<span class="nc" id="L59">        catch(Exception e)</span>
+        {
+<span class="nc" id="L61">            throw e;</span>
+        }
+    }
+    
+    
+    /**
+     * If at least 3 points have been scored by each player, and the scores are equal, the score is &quot;deuce&quot;.
+     * @param game
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    protected boolean isDeuce(Game game)
+            throws Exception
+    {
+<span class="nc" id="L75">        Player playerOne = game.getPlayers().getPlayer(1);</span>
+<span class="nc" id="L76">        Player playerTwo = game.getPlayers().getPlayer(2);</span>
+
+<span class="nc bnc" id="L78" title="All 2 branches missed.">        return game.getPlayerPoints(playerOne) == game.getPlayerPoints(playerTwo) &amp;&amp; </span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            game.getPlayerPoints(playerOne) &gt;= 3;</span>
+    }
+    
+    
+    /**
+     * If at least 3 points have been scored by each side and a player has one more point than his opponent, the score of the game is &quot;advantage&quot; for the player in the lead.
+     * @param game
+     * @param player
+     * @return 
+     * @throws java.lang.Exception 
+     */
+    protected boolean hasAdvantage(Game game, Player player)
+            throws Exception
+    {
+<span class="nc bnc" id="L93" title="All 2 branches missed.">        return game.getPlayerPoints(player) &gt; 3 &amp;&amp; </span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">            game.getPlayerPoints(player.getOpponent(0)) &gt; 3 &amp;&amp; </span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            game.getPlayerPoints(player) == game.getPlayerPoints(player.getOpponent(0)) + 1;</span>
+    }
+    
+    
+    
+    //The running score of each game is described in a manner peculiar to tennis: scores from zero to three points are described as 0, 15, 30, 40, respectively
+    protected int getScoreForDisplay(Game game, Player player)
+            throws Exception
+    {
+<span class="nc bnc" id="L104" title="All 5 branches missed.">        switch(game.getPlayerPoints(player))</span>
+        {
+            case 0:
+<span class="nc" id="L107">                return 0;</span>
+            case 1:
+<span class="nc" id="L109">                return 15;</span>
+            case 2:
+<span class="nc" id="L111">                return 30;</span>
+            case 3:
+<span class="nc" id="L113">                return 40;</span>
+            default:
+<span class="nc" id="L115">                throw new Exception(&quot;Player has an invalid score!&quot;);</span>
+        }
+    }
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.7.6.201602180812</span></div></body></html>
